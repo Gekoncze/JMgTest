@@ -1,8 +1,8 @@
 package cz.mg.test;
 
 import cz.mg.collections.Clump;
-import cz.mg.collections.list.List;
 import cz.mg.test.exceptions.DiscrepancyException;
+
 import static cz.mg.test.runner.TestUtils.getName;
 
 
@@ -29,21 +29,26 @@ public interface Test {
         }
     }
 
-    default void assertContains(Clump colelction, Object... items){
-        List<Object> missing = new List<>();
-        for(Object item : items){
-            if(!Clump.contains(colelction, item)){
-                missing.addLast(item);
+    default void assertContains(Clump clump, Object wanted){
+        if(!Clump.contains(clump, wanted)){
+            throw new DiscrepancyException("Missing " + getName(wanted) + " in collection.");
+        }
+    }
+
+    default void assertContains(Clump clump, Object wanted, int expectedCount){
+        int actualCount = 0;
+        for(Object object : clump){
+            if(object == wanted){
+                actualCount++;
             }
         }
-        if(!missing.isEmpty()){
-            List<String> names = new List<>();
-            for(Object miss : missing){
-                names.addLast(
-                    getName(miss)
-                );
-            }
-            throw new DiscrepancyException("Missing " + names.toText(", ") + " in collection.");
+
+        if(actualCount < expectedCount){
+            throw new DiscrepancyException("Too few occurrences of " + getName(wanted) + " in collection. Expected " + expectedCount + ", but got " + actualCount + ".");
+        }
+
+        if(actualCount > expectedCount){
+            throw new DiscrepancyException("Too many occurrences of " + getName(wanted) + " in collection. Expected " + expectedCount + ", but got " + actualCount + ".");
         }
     }
 
