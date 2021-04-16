@@ -31,11 +31,20 @@ public interface Test {
 
     default void assertEqualsExistence(Object expectation, Object reality){
         if(expectation == null && reality != null){
-            error("Expected null but got not null.");
+            error("Expected null, but got not null.");
         }
 
         if(expectation != null && reality == null){
-            error("Expected not null but got null.");
+            error("Expected not null, but got null.");
+        }
+    }
+
+    default void assertEqualsType(Object expectation, Object reality){
+        assertEqualsExistence(expectation, reality);
+        if(expectation != null && reality != null){
+            if(expectation.getClass() != reality.getClass()){
+                error("Expected type " + expectation.getClass().getSimpleName() + ", but got " + reality.getClass().getSimpleName() + ".");
+            }
         }
     }
 
