@@ -29,7 +29,7 @@ public interface Test {
         }
     }
 
-    default void assertEqualsNullOrNotNull(Object expectation, Object reality){
+    default void assertEqualsExistence(Object expectation, Object reality){
         if(expectation == null && reality != null){
             error("Expected null but got not null.");
         }
