@@ -3,6 +3,8 @@ package cz.mg.test;
 import cz.mg.collections.Clump;
 import cz.mg.test.exceptions.DiscrepancyException;
 
+import java.util.Objects;
+
 import static cz.mg.test.runner.TestUtils.getName;
 
 
@@ -20,6 +22,12 @@ public interface Test {
     default void assertNotNull(Object object){
         if(object == null){
             error("Unexpected null value.");
+        }
+    }
+
+    default void assertEquals(Object expectation, Object reality){
+        if(Objects.equals(expectation, reality)){
+            error("Expected '" + expectation + "', but got '" + reality + "'.");
         }
     }
 
