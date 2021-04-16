@@ -23,9 +23,15 @@ public interface Test {
         }
     }
 
-    default void assertEquals(Object expectation, Object reality){
+    default void assertEqualsReference(Object expectation, Object reality){
         if(expectation != reality){
-            error("Expected " + getName(expectation) + ", but got " + getName(reality) + ".");
+            error("Expected reference of " + getName(expectation) + ", but got " + getName(reality) + ".");
+        }
+    }
+
+    default void assertNotEqualsReference(Object expectation, Object reality){
+        if(expectation == reality){
+            error("Expected different references, but got the same for " + getName(expectation) + ".");
         }
     }
 
