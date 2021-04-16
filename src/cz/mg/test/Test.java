@@ -29,6 +29,16 @@ public interface Test {
         }
     }
 
+    default void assertEqualsNullOrNotNull(Object expectation, Object reality){
+        if(expectation == null && reality != null){
+            error("Expected null but got not null.");
+        }
+
+        if(expectation != null && reality == null){
+            error("Expected not null but got null.");
+        }
+    }
+
     default void assertContains(Clump clump, Object wanted){
         if(!Clump.contains(clump, wanted)){
             throw new DiscrepancyException("Missing " + getName(wanted) + " in collection.");
