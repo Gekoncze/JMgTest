@@ -26,7 +26,7 @@ public interface Test {
     }
 
     default void assertEquals(Object expectation, Object reality){
-        if(Objects.equals(expectation, reality)){
+        if(!Objects.equals(expectation, reality)){
             error("Expected '" + expectation + "', but got '" + reality + "'.");
         }
     }
