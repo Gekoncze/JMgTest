@@ -89,7 +89,15 @@ public interface Test {
         try {
             runnable.run();
             error("Expected an exception, but got none.");
-        } catch (RuntimeException e){
+        } catch (Exception e){
+        }
+    }
+
+    default void assertExceptionNotThrown(Runnable runnable){
+        try {
+            runnable.run();
+        } catch (Exception e){
+            error("Expected no exception, but got '" + e.getClass().getSimpleName() + "'.");
         }
     }
 }
