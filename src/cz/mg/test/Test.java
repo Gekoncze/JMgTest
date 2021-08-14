@@ -31,19 +31,19 @@ public interface Test {
         }
     }
 
-    default void assertEqualsReference(Object expectation, Object reality){
+    default void assertSame(Object expectation, Object reality){
         if(expectation != reality){
             error("Expected reference of " + getName(expectation) + ", but got " + getName(reality) + ".");
         }
     }
 
-    default void assertNotEqualsReference(Object expectation, Object reality){
+    default void assertNotSame(Object expectation, Object reality){
         if(expectation == reality){
             error("Expected different references, but got the same for " + getName(expectation) + ".");
         }
     }
 
-    default void assertEqualsExistence(Object expectation, Object reality){
+    default void assertExistenceEquals(Object expectation, Object reality){
         if(expectation == null && reality != null){
             error("Expected null, but got not null.");
         }
@@ -53,8 +53,8 @@ public interface Test {
         }
     }
 
-    default void assertEqualsType(Object expectation, Object reality){
-        assertEqualsExistence(expectation, reality);
+    default void assertTypeSame(Object expectation, Object reality){
+        assertExistenceEquals(expectation, reality);
         if(expectation != null && reality != null){
             if(expectation.getClass() != reality.getClass()){
                 error("Expected type " + expectation.getClass().getSimpleName() + ", but got " + reality.getClass().getSimpleName() + ".");
