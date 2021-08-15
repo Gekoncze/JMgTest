@@ -33,13 +33,13 @@ public interface Test {
 
     default void assertSame(Object expectation, Object reality){
         if(expectation != reality){
-            error("Expected reference of " + getName(expectation) + ", but got " + getName(reality) + ".");
+            error("Expected '" + getName(expectation) + "' to be the same object as '" + getName(reality) + "'.");
         }
     }
 
     default void assertNotSame(Object expectation, Object reality){
         if(expectation == reality){
-            error("Expected different references, but got the same for " + getName(expectation) + ".");
+            error("Expected '" + getName(expectation) + "' to be different object than '" + getName(reality) + "'.");
         }
     }
 
@@ -57,7 +57,7 @@ public interface Test {
         assertExistenceEquals(expectation, reality);
         if(expectation != null && reality != null){
             if(expectation.getClass() != reality.getClass()){
-                error("Expected type " + expectation.getClass().getSimpleName() + ", but got " + reality.getClass().getSimpleName() + ".");
+                error("Expected type '" + expectation.getClass().getSimpleName() + "', but got '" + reality.getClass().getSimpleName() + "'.");
             }
         }
     }
