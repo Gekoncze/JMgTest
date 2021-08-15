@@ -85,7 +85,7 @@ public interface Test {
         }
     }
 
-    default void assertExceptionThrown(Runnable runnable){
+    default void assertExceptionThrown(RunnableThrowable runnable){
         try {
             runnable.run();
             error("Expected an exception, but got none.");
@@ -93,7 +93,7 @@ public interface Test {
         }
     }
 
-    default void assertExceptionThrown(Class<? extends Exception> type, Runnable runnable){
+    default void assertExceptionThrown(Class<? extends Exception> type, RunnableThrowable runnable){
         try {
             runnable.run();
             error("Expected an exception, but got none.");
@@ -104,7 +104,7 @@ public interface Test {
         }
     }
 
-    default void assertExceptionNotThrown(Runnable runnable){
+    default void assertExceptionNotThrown(RunnableThrowable runnable){
         try {
             runnable.run();
         } catch (Exception e){
