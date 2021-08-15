@@ -93,6 +93,17 @@ public interface Test {
         }
     }
 
+    default void assertExceptionThrown(Class<? extends Exception> type, Runnable runnable){
+        try {
+            runnable.run();
+            error("Expected an exception, but got none.");
+        } catch (Exception e){
+            if(!type.isAssignableFrom(e.getClass())){
+                error("Expected an exception of type '" + type.getSimpleName() + "', but got '" + e.getClass().getSimpleName() + "'.");
+            }
+        }
+    }
+
     default void assertExceptionNotThrown(Runnable runnable){
         try {
             runnable.run();
