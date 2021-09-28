@@ -14,15 +14,11 @@ public interface Test {
     }
 
     default void assertNull(Object object){
-        if(object != null){
-            error("Unexpected non-null value.");
-        }
+        assertSame(null, object);
     }
 
     default void assertNotNull(Object object){
-        if(object == null){
-            error("Unexpected null value.");
-        }
+        assertNotSame(null, object);
     }
 
     default void assertEquals(Object expectation, Object reality){
