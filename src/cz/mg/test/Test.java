@@ -64,7 +64,13 @@ public interface Test {
 
     default void assertContains(Clump clump, Object wanted){
         if(!Clump.contains(clump, wanted)){
-            throw new DiscrepancyException("Missing " + getName(wanted) + " in collection.");
+            throw new DiscrepancyException("Missing '" + getName(wanted) + "' in collection.");
+        }
+    }
+
+    default void assertNotContains(Clump clump, Object wanted){
+        if(Clump.contains(clump, wanted)){
+            throw new DiscrepancyException("Unexpected '" + getName(wanted) + "' in collection.");
         }
     }
 
@@ -77,11 +83,11 @@ public interface Test {
         }
 
         if(actualCount < expectedCount){
-            throw new DiscrepancyException("Too few occurrences of " + getName(wanted) + " in collection. Expected " + expectedCount + ", but got " + actualCount + ".");
+            throw new DiscrepancyException("Too few occurrences of '" + getName(wanted) + "' in collection. Expected " + expectedCount + ", but got " + actualCount + ".");
         }
 
         if(actualCount > expectedCount){
-            throw new DiscrepancyException("Too many occurrences of " + getName(wanted) + " in collection. Expected " + expectedCount + ", but got " + actualCount + ".");
+            throw new DiscrepancyException("Too many occurrences of '" + getName(wanted) + "' in collection. Expected " + expectedCount + ", but got " + actualCount + ".");
         }
     }
 
