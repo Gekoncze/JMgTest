@@ -33,13 +33,13 @@ public interface Test {
 
     default void assertSame(Object expectation, Object reality){
         if(expectation != reality){
-            error("Expected '" + getName(expectation) + "' to be the same object as '" + getName(reality) + "'.");
+            error("Expected '" + getName(expectation) + "', but got '" + getName(reality) + "'.");
         }
     }
 
     default void assertNotSame(Object expectation, Object reality){
         if(expectation == reality){
-            error("Expected '" + getName(expectation) + "' to be different object than '" + getName(reality) + "'.");
+            error("Not expected '" + getName(expectation) + "', but got '" + getName(reality) + "'.");
         }
     }
 
