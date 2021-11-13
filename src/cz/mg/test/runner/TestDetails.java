@@ -1,40 +1,59 @@
 package cz.mg.test.runner;
 
+import cz.mg.annotations.classes.Utility;
+import cz.mg.annotations.requirement.Mandatory;
+import cz.mg.annotations.storage.Part;
+import cz.mg.classdetector.Package;
 import cz.mg.collections.list.List;
-import cz.mg.test.Test;
-import cz.mg.test.event.TestAdapter;
-import cz.mg.test.event.TestCaseAdapter;
-import cz.mg.test.event.TestCaseListener;
-import cz.mg.test.event.TestListener;
-import cz.mg.test.exceptions.TestCaseException;
-import cz.mg.test.exceptions.TestException;
+import cz.mg.collections.list.ReadableList;
+import cz.mg.test.event.testclass.TestClassClassAdapter;
+import cz.mg.test.event.testmethod.TestMethodAdapter;
+import cz.mg.test.event.testmethod.TestMethodListener;
+import cz.mg.test.event.testclass.TestClassListener;
+import cz.mg.test.event.testpackage.TestPackageAdapter;
+import cz.mg.test.event.testpackage.TestPackageListener;
+import cz.mg.test.exceptions.TestMethodException;
+import cz.mg.test.exceptions.TestClassException;
+import cz.mg.test.exceptions.TestPackageException;
 
 import java.lang.reflect.Method;
 
 
-public class TestDetails {
-    private final List<TestException> failedTests = new List<>();
-    private final List<TestCaseException> failedTestCases = new List<>();
+public @Utility class TestDetails {
+    private final @Mandatory @Part List<TestPackageException> failedTestPackages = new List<>();
+    private final @Mandatory @Part List<TestClassException> failedTests = new List<>();
+    private final @Mandatory @Part List<TestMethodException> failedTestCases = new List<>();
 
-    final TestListener testListener = new TestAdapter() {
+    protected final @Mandatory TestPackageListener testPackageListener = new TestPackageAdapter() {
         @Override
-        public void onFailure(Test test, TestException testException) {
-            failedTests.addLast(testException);
+        public void onFailure(@Mandatory Package testPackage, @Mandatory TestPackageException testPackageException) {
+            failedTestPackages.addLast(testPackageException);
         }
     };
 
-    final TestCaseListener testCaseListener = new TestCaseAdapter() {
+    protected final @Mandatory TestClassListener testClassListener = new TestClassClassAdapter() {
         @Override
-        public void onFailure(Test test, Method testCase, TestCaseException testCaseException) {
-            failedTestCases.addLast(testCaseException);
+        public void onFailure(@Mandatory Class testClass, @Mandatory TestClassException testClassException) {
+            failedTests.addLast(testClassException);
         }
     };
 
-    public List<TestException> getFailedTests() {
+    protected final @Mandatory TestMethodListener testMethodListener = new TestMethodAdapter() {
+        @Override
+        public void onFailure(@Mandatory Method testMethod, @Mandatory TestMethodException testMethodException) {
+            failedTestCases.addLast(testMethodException);
+        }
+    };
+
+    public @Mandatory ReadableList<TestPackageException> getFailedTestPackages() {
+        return failedTestPackages;
+    }
+
+    public @Mandatory ReadableList<TestClassException> getFailedTests() {
         return failedTests;
     }
 
-    public List<TestCaseException> getFailedTestCases() {
+    public @Mandatory ReadableList<TestMethodException> getFailedTestCases() {
         return failedTestCases;
     }
 }
