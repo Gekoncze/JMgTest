@@ -38,9 +38,13 @@ public @Utility class BulkTestMethodRunner extends CommandLineTestRunner {
     }
 
     public void run(@Mandatory Method... testMethods){
+        run(new List<>(testMethods));
+    }
+
+    public void run(@Mandatory List<Method> testMethods){
         println("Running tests");
 
-        List<TestMethodException> failedTestMethods = testRunner.runTestMethods(new List<>(testMethods));
+        List<TestMethodException> failedTestMethods = testRunner.runTestMethods(testMethods);
         println();
 
         if(failedTestMethods.isEmpty()){

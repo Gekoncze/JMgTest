@@ -37,9 +37,13 @@ public @Utility class BulkTestPackageRunner extends CommandLineTestRunner {
     }
 
     public void run(@Mandatory Package... testPackages){
+        run(new List<>(testPackages));
+    }
+
+    public void run(@Mandatory List<Package> testPackages){
         println("Running tests");
 
-        List<TestPackageException> failedTestPackages = testRunner.runTestPackages(new List<>(testPackages));
+        List<TestPackageException> failedTestPackages = testRunner.runTestPackages(testPackages);
         println();
 
         if(failedTestPackages.isEmpty()){

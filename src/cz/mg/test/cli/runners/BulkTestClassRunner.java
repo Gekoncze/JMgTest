@@ -36,9 +36,13 @@ public @Utility class BulkTestClassRunner extends CommandLineTestRunner {
     }
 
     public void run(@Mandatory Class... testClasses){
+        run(new List<>(testClasses));
+    }
+
+    public void run(@Mandatory List<Class> testClasses){
         println("Running tests");
 
-        List<TestClassException> failedTestClasses = testRunner.runTestClasses(new List<>(testClasses));
+        List<TestClassException> failedTestClasses = testRunner.runTestClasses(testClasses);
         println();
 
         if(failedTestClasses.isEmpty()){
