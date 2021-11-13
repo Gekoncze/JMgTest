@@ -30,9 +30,7 @@ public class AllTestRunner extends CommandLineTestRunner {
             collect(root, allPackages);
             ListSorter.sortInPlace(allPackages, Comparator.comparing(a -> a.getFullName()));
 
-            new BulkTestPackageRunner().run(
-                (Package[]) new Array<>(allPackages).getJavaArray()
-            );
+            new BulkTestPackageRunner().run(allPackages);
         } catch (IOException e){
             throw new IllegalArgumentException("Could not open jar file '" + pathToJarFile + "'.");
         }
