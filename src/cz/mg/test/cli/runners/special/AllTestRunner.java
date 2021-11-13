@@ -1,4 +1,4 @@
-package cz.mg.test.cli.runners;
+package cz.mg.test.cli.runners.special;
 
 import cz.mg.annotations.requirement.Mandatory;
 import cz.mg.classdetector.ClassDetector;
@@ -10,6 +10,7 @@ import cz.mg.collections.list.List;
 import cz.mg.collections.list.ListSorter;
 import cz.mg.test.Test;
 import cz.mg.test.cli.CommandLineTestRunner;
+import cz.mg.test.cli.runners.BulkTestPackageRunner;
 
 import java.io.FileInputStream;
 import java.io.IOException;
