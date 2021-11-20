@@ -91,21 +91,27 @@ public interface Test {
         }
     }
 
-    default void assertExceptionThrown(RunnableThrowable runnable){
+    default Exception assertExceptionThrown(RunnableThrowable runnable){
         try {
             runnable.run();
             error("Expected an exception, but got none.");
+            throw new RuntimeException(); // unreachable by default
         } catch (Exception e){
+            return e;
         }
     }
 
-    default void assertExceptionThrown(Class<? extends Exception> type, RunnableThrowable runnable){
+    default <T extends Exception> T assertExceptionThrown(Class<T> type, RunnableThrowable runnable){
         try {
             runnable.run();
             error("Expected an exception, but got none.");
+            throw new RuntimeException(); // unreachable by default
         } catch (Exception e){
-            if(!type.isAssignableFrom(e.getClass())){
+            if(type.isAssignableFrom(e.getClass())){
+                return (T) e;
+            } else {
                 error("Expected an exception of type '" + type.getSimpleName() + "', but got '" + e.getClass().getSimpleName() + "'.", e);
+                throw new RuntimeException(); // unreachable by default
             }
         }
     }
