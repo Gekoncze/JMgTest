@@ -13,6 +13,10 @@ public interface Test {
         throw new DiscrepancyException(message);
     }
 
+    default void error(String message, Exception cause){
+        throw new DiscrepancyException(message, cause);
+    }
+
     default void assertNull(Object object){
         assertSame(null, object);
     }
@@ -101,7 +105,7 @@ public interface Test {
             error("Expected an exception, but got none.");
         } catch (Exception e){
             if(!type.isAssignableFrom(e.getClass())){
-                error("Expected an exception of type '" + type.getSimpleName() + "', but got '" + e.getClass().getSimpleName() + "'.");
+                error("Expected an exception of type '" + type.getSimpleName() + "', but got '" + e.getClass().getSimpleName() + "'.", e);
             }
         }
     }
@@ -110,7 +114,7 @@ public interface Test {
         try {
             runnable.run();
         } catch (Exception e){
-            error("Expected no exception, but got '" + e.getClass().getSimpleName() + "'.");
+            error("Expected no exception, but got '" + e.getClass().getSimpleName() + "'.", e);
         }
     }
 }

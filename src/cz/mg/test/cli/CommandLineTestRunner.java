@@ -19,7 +19,24 @@ public abstract @Utility class CommandLineTestRunner {
         System.out.println();
     }
 
-    protected static void printStackTrace(@Mandatory Throwable e){
+    protected static void printException(@Mandatory Throwable e){
+        printException(e, true);
+    }
+
+    private static void printException(@Mandatory Throwable e, boolean first){
+        String type = e.getClass().getSimpleName();
+        String message = e.getMessage();
+        String causedBy = first ? "" : "Caused by ";
+        println("    " + causedBy + type + " " + '"' + message + '"');
+        printStackTrace(e);
+        println();
+
+        if(e.getCause() != null){
+            printException(e.getCause(), false);
+        }
+    }
+
+    private static void printStackTrace(@Mandatory Throwable e){
         for(int i = 0; i < e.getStackTrace().length; i++){
             StackTraceElement element = e.getStackTrace()[i];
             println(

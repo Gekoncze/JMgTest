@@ -7,4 +7,8 @@ public class DiscrepancyException extends RuntimeException {
     public DiscrepancyException(@Mandatory String message) {
         super(message);
     }
+
+    public DiscrepancyException(@Mandatory String message, @Mandatory Throwable cause) {
+        super(message, cause);
+    }
 }

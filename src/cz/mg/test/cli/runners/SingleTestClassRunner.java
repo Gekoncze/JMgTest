@@ -53,11 +53,7 @@ public @Utility class SingleTestClassRunner extends CommandLineTestRunner {
             println();
             for(TestMethodException failedTestCase : failedTestClass.getFailedTestMethods()){
                 println("Exception in " + failedTestCase.getTestMethod().getName() + ":");
-                String type = failedTestCase.getCause().getClass().getSimpleName();
-                String message = failedTestCase.getCause().getMessage();
-                println("    " + type + " " + '"' + message + '"');
-                printStackTrace(failedTestCase.getCause());
-                println();
+                printException(failedTestCase.getCause());
             }
         }
     }

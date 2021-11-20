@@ -16,6 +16,7 @@ import cz.mg.test.exceptions.TestMethodException;
 import cz.mg.test.exceptions.TestClassException;
 import cz.mg.test.exceptions.TestPackageException;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 
@@ -115,6 +116,9 @@ public @Utility class TestRunner {
             Test test = (Test) testClass.getConstructor().newInstance();
             testMethod.invoke(test);
             testMethodListeners.onSuccess(testMethod);
+        } catch (InvocationTargetException e){
+            result = new TestMethodException(testMethod, e.getCause());
+            testMethodListeners.onFailure(testMethod, result);
         } catch (Throwable e){
             result = new TestMethodException(testMethod, e);
             testMethodListeners.onFailure(testMethod, result);
