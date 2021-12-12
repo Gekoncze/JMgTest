@@ -43,6 +43,8 @@ public @Utility class SingleTestPackageRunner extends CommandLineTestRunner {
         println();
 
         if(failedTestPackage == null){
+            printSummaryResults(testRunner.getTestDetails());
+            println();
             println("All tests passed.");
         } else {
             println("Failed tests:");
@@ -50,10 +52,7 @@ public @Utility class SingleTestPackageRunner extends CommandLineTestRunner {
                 println("    " + failedTest.getTestClass().getSimpleName());
             }
             println();
-            println("Total of " + testRunner.getTestDetails().getFailedTests().count() + " tests failed.");
-            println("Total of " + testRunner.getTestDetails().getFailedTestCases().count() + " test cases failed.");
-            println("Total of " + testRunner.getTestDetails().getPassedTests().count() + " tests passed.");
-            println("Total of " + testRunner.getTestDetails().getPassedTestCases().count() + " test cases passed.");
+            printSummaryResults(testRunner.getTestDetails());
             println();
             println("Run failed tests individually to see more details.");
         }

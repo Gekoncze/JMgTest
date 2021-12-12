@@ -48,17 +48,16 @@ public @Utility class BulkTestMethodRunner extends CommandLineTestRunner {
         println();
 
         if(failedTestMethods.isEmpty()){
-            println("All tests passed.");
+            printSummaryResults(testRunner.getTestDetails());
             println();
-            println("Total of " + testRunner.getTestDetails().getPassedTestCases().count() + " test cases passed.");
+            println("All tests passed.");
         } else {
             println("Failed test cases:");
             for(TestMethodException failedTestMethod : failedTestMethods){
                 println("    " + failedTestMethod.getTestMethod().getName());
             }
             println();
-            println("Total of " + testRunner.getTestDetails().getFailedTestCases().count() + " test cases failed.");
-            println("Total of " + testRunner.getTestDetails().getPassedTestCases().count() + " test cases passed.");
+            printSummaryResults(testRunner.getTestDetails());
             println();
             println("Run failed tests individually to see more details.");
         }

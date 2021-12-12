@@ -23,6 +23,8 @@ public @Utility class SingleTestMethodRunner extends CommandLineTestRunner {
         println();
 
         if(failedTestCase == null){
+            printSummaryResults(testRunner.getTestDetails());
+            println();
             println("All tests passed.");
         } else {
             println("Failed test case " + failedTestCase.getTestMethod().getName() + ":");

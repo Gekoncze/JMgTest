@@ -44,6 +44,8 @@ public @Utility class SingleTestClassRunner extends CommandLineTestRunner {
         println();
 
         if(failedTestClass == null){
+            printSummaryResults(testRunner.getTestDetails());
+            println();
             println("All tests passed.");
         } else {
             println("Failed test cases:");
