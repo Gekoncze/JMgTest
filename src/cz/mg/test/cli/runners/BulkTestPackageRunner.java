@@ -57,6 +57,10 @@ public @Utility class BulkTestPackageRunner extends CommandLineTestRunner {
             println("Total of " + testRunner.getTestDetails().getFailedTestPackages().count() + " test packages failed.");
             println("Total of " + testRunner.getTestDetails().getFailedTests().count() + " tests failed.");
             println("Total of " + testRunner.getTestDetails().getFailedTestCases().count() + " test cases failed.");
+            println("Total of " + testRunner.getTestDetails().getPassedTestPackages().count() + " test packages passed.");
+            println("Total of " + testRunner.getTestDetails().getPassedTests().count() + " tests passed.");
+            println("Total of " + testRunner.getTestDetails().getPassedTestCases().count() + " test cases passed.");
+            println();
             println("Run failed tests individually to see more details.");
         }
     }

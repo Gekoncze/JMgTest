@@ -47,6 +47,9 @@ public @Utility class BulkTestClassRunner extends CommandLineTestRunner {
 
         if(failedTestClasses.isEmpty()){
             println("All tests passed.");
+            println();
+            println("Total of " + testRunner.getTestDetails().getPassedTests().count() + " tests passed.");
+            println("Total of " + testRunner.getTestDetails().getPassedTestCases().count() + " test cases passed.");
         } else {
             println("Failed tests:");
             for(TestClassException failedTestClass : failedTestClasses){
@@ -55,6 +58,9 @@ public @Utility class BulkTestClassRunner extends CommandLineTestRunner {
             println();
             println("Total of " + testRunner.getTestDetails().getFailedTests().count() + " tests failed.");
             println("Total of " + testRunner.getTestDetails().getFailedTestCases().count() + " test cases failed.");
+            println("Total of " + testRunner.getTestDetails().getPassedTests().count() + " tests passed.");
+            println("Total of " + testRunner.getTestDetails().getPassedTestCases().count() + " test cases passed.");
+            println();
             println("Run failed tests individually to see more details.");
         }
     }
