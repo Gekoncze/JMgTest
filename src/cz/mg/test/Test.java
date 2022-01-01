@@ -94,18 +94,17 @@ public interface Test {
     default Exception assertExceptionThrown(RunnableThrowable runnable){
         try {
             runnable.run();
-            error("Expected an exception, but got none.");
-            throw new RuntimeException(); // unreachable by default
         } catch (Exception e){
             return e;
         }
+
+        error("Expected an exception, but got none.");
+        throw new RuntimeException(); // unreachable by default
     }
 
     default <T extends Exception> T assertExceptionThrown(Class<T> type, RunnableThrowable runnable){
         try {
             runnable.run();
-            error("Expected an exception, but got none.");
-            throw new RuntimeException(); // unreachable by default
         } catch (Exception e){
             if(type.isAssignableFrom(e.getClass())){
                 return (T) e;
@@ -114,6 +113,9 @@ public interface Test {
                 throw new RuntimeException(); // unreachable by default
             }
         }
+
+        error("Expected an exception, but got none.");
+        throw new RuntimeException(); // unreachable by default
     }
 
     default void assertExceptionNotThrown(RunnableThrowable runnable){
